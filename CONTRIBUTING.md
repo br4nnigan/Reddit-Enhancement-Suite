@@ -2,7 +2,7 @@
 
 Thinking about contributing to RES? Awesome! We just ask that you follow a few simple guidelines:
 
-1. RES has grown quite large, so we have carefully choose what features we should add to avoid maintenance burden and code bloat. If you're unsure if your feature would appeal to a wide audience, please post about it on [/r/Enhancement](https://www.reddit.com/r/Enhancement/).
+1. RES has grown quite large, so we have carefully chosen what features we should add to avoid maintenance burden and code bloat. If you're unsure if your feature would appeal to a wide audience, please post about it on [/r/Enhancement](https://www.reddit.com/r/Enhancement/).
 
 1. There are a few features we have made a conscious choice not to add to RES, so make sure whatever you'd like to contribute [isn't on that list](https://www.reddit.com/r/Enhancement/wiki/rejectedfeaturerequests).
 
@@ -11,6 +11,8 @@ Thinking about contributing to RES? Awesome! We just ask that you follow a few s
 1. To add new modules or hosts, see [Adding new files](#adding-new-files).
 
 1. To check code style and autofix some formatting errors, see [Lint and test commands](#lint-and-test-commands).
+
+1. [Come chat with us on IRC](https://webchat.snoonet.org/#enhancement) if you would like to implement a new feature. It is the quickest way to get a response from the development team.
 
 ## Building development versions of the extension
 
@@ -28,11 +30,11 @@ To load the extension into your browser, see [Loading RES into your browser](#lo
 
 #### Build commands
 
-**`npm start [-- <browsers>]`** will clean `dist/`, then build RES (dev mode), and start a watch task that will rebuild RES when you make changes. Only changed files will be rebuilt.
+**`npm start [<browsers>]`** will clean `dist/`, then build RES (dev mode), and start a watch task that will rebuild RES when you make changes. Only changed files will be rebuilt.
 
-**`npm run once [-- <browsers>]`** will clean `dist/`, then build RES (dev mode) a single time.
+**`npm run once [<browsers>]`** will clean `dist/`, then build RES (dev mode) a single time.
 
-**`npm run build [-- <browsers>]`** will clean `dist/`, then build RES (release mode). Each build output will be compressed to a .zip file in `dist/zip/`.
+**`npm run build [<browsers>]`** will clean `dist/`, then build RES (release mode). Each build output will be compressed to a .zip file in `dist/zip/`.
 
 `<browsers>` is a comma-separated list of browsers to target, e.g. `chrome,firefox,edge`. `all` will build all targets. By default, `chrome` will be targeted.
 
@@ -44,9 +46,9 @@ To load the extension into your browser, see [Loading RES into your browser](#lo
 
 **`npm run flow`** will run [Flow](https://flowtype.org/) type checking, and start the Flow server so future runs will complete faster. Use `npm run flow -- stop` to stop the server, or `npm run flow -- check` to run Flow once without starting the server.
 
-**`npm test`** will run unit tests (in `__tests__` directories) using [Ava](https://github.com/avajs/ava).
+**`npm test`** will run unit tests (in `__tests__` directories) using [Ava](https://github.com/avajs/ava). (requires Node 7.6+)
 
-**`npm run test-integration -- <browsers>`** will run integration tests (in `tests/`) using [Nightwatch.js](http://nightwatchjs.org/).
+**`npm run integration -- <browsers> [-f <testFileGlob>]`** will run integration tests (in `tests/`) using [Nightwatch.js](http://nightwatchjs.org/).
 Currently just `chrome` and `firefox` can be targeted.
 
 To run integration tests locally, you need to run an instance of [Selenium Standalone Server](http://www.seleniumhq.org/download/) and have either [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/home) or [GeckoDriver](https://github.com/mozilla/geckodriver) on your `PATH`.
@@ -57,9 +59,9 @@ The default host and port (`localhost` and `4444`) should work for most local in
 
 ##### Chrome
 
-1. Go to `Menu->Tools->Extensions` and tick the `Developer Mode` checkbox.
+1. Go to `Menu->More tools->Extensions` and tick the `Developer Mode` checkbox.
 1. Click `Load unpacked extension` and select the `/dist/chrome` folder (not the `/chrome` folder).
-1. Any time you make changes, you must go back to the `Menu->Tools->Extensions` page and `Reload` the extension.
+1. Any time you make changes, you must go back to the `Menu->More tools->Extensions` page and `Reload` the extension.
 
 ##### Microsoft Edge
 
@@ -70,7 +72,7 @@ The default host and port (`localhost` and `4444`) should work for most local in
 ##### Firefox
 
 1. Go to `about:debugging` and tick the `Enable add-on debugging` checkbox.
-1. Click `Load Temporary Add-on` and select `/dist/firefox/webextension/manifest.json` (not the `/firefox` folder).
+1. Click `Load Temporary Add-on` and select `/dist/firefox/manifest.json` (not the `/firefox` folder).
 1. Any time you make changes, you must go back to the `about:debugging` page and `Reload` the extension.
 
 ## Project structure

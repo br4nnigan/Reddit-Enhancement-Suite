@@ -1,5 +1,6 @@
 ## General ##
 node_modules/
+npm-debug.log
 
 # Browser extensions and certs
 *.crx
@@ -12,6 +13,7 @@ node_modules/
 # Copied files
 /dist/
 
+/tests_output/
 /tests/selenium/opera-profile/
 /tests/selenium/opera-profile-patch/
 /tests/selenium/opera-profile-clean/
@@ -71,3 +73,6 @@ $RECYCLE.BIN/
 ## Visual Studio ##
 .vscode
 .vs
+
+## NPM package lock ##
+package-lock.json

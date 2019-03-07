@@ -3,11 +3,12 @@
 	"name": "{{prop-loader?title!../package.json}}",
 	"version": "{{prop-loader?version!../package.json}}",
 	"description": "{{prop-loader?description!../package.json}}",
+	"author": "{{prop-loader?author!../package.json}}",
 	"homepage_url": "{{prop-loader?homepage!../package.json}}",
 	"applications": {
 		"gecko": {
 			"id": "jid1-xUfzOsOFlzSOXg@jetpack",
-			"strict_min_version": "52.0"
+			"strict_min_version": "57.0"
 		}
 	},
 	"icons": {
@@ -20,19 +21,40 @@
 			"38": "{{../images/css-on.png}}"
 		}
 	},
+	"options_ui": {
+		"page": "{{../lib/options.html}}",
+		"open_in_tab": true
+	},
 	"background": {
 		"scripts": [
-			"{{./firefox.entry.js}}",
-			"{{./background.entry.js}}"
+			"{{../lib/background.entry.js}}"
 		]
 	},
 	"content_scripts": [{
 		"matches": [
 			"https://*.reddit.com/*"
 		],
+		"exclude_matches": [
+			"https://mod.reddit.com/*",
+			"https://ads.reddit.com/*",
+			"https://i.reddit.com/*",
+			"https://m.reddit.com/*",
+			"https://static.reddit.com/*",
+			"https://thumbs.reddit.com/*",
+			"https://blog.reddit.com/*",
+			"https://code.reddit.com/*",
+			"https://about.reddit.com/*",
+			"https://*.reddit.com/*.compact",
+			"https://*.reddit.com/*.compact?*",
+			"https://*.reddit.com/*.mobile",
+			"https://*.reddit.com/*.mobile?*",
+			"https://*.reddit.com/*.json",
+			"https://*.reddit.com/*.json?*",
+			"https://*.reddit.com/*.json-html",
+			"https://*.reddit.com/*.json-html?*"
+		],
 		"js": [
-			"{{./firefox.entry.js}}",
-			"{{../lib/main.entry.js}}"
+			"{{../lib/foreground.entry.js}}"
 		],
 		"css": [
 			"{{../lib/css/res.scss}}"
@@ -40,27 +62,22 @@
 		"run_at": "document_start"
 	}],
 	"permissions": [
+		"https://*.reddit.com/*",
 		"cookies",
+		"identity",
 		"tabs",
 		"history",
 		"storage",
 		"unlimitedStorage",
 		"downloads",
 
-		"http://redditenhancementsuite.com/",
-		"http://reddit.com/*",
-		"https://reddit.com/*",
-		"http://*.reddit.com/*",
-		"https://*.reddit.com/*",
-
 		"https://api.twitter.com/*",
-		"https://onedrive.live.com/*",
-		"https://1drv.ms/*",
 		"https://backend.deviantart.com/oembed",
 		"https://api.gyazo.com/api/oembed",
 		"https://codepen.io/api/oembed",
 		"https://api.tumblr.com/v2/blog/*/posts",
 		"https://xkcd.com/*/info.0.json",
-		"https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/*"
+		"https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/*",
+		"https://content.googleapis.com/drive/v3/*"
 	]
 }

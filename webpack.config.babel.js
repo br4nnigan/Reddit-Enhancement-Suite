@@ -1,12 +1,12 @@
+/* @noflow */
+
 /* eslint-disable import/no-nodejs-modules */
 
 import path from 'path';
 
 import InertEntryPlugin from 'inert-entry-webpack-plugin';
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
-import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import ZipPlugin from 'zip-webpack-plugin';
-import webpack from 'webpack';
 
 const browserConfig = {
 	chrome: {
@@ -27,24 +27,24 @@ const browserConfig = {
 	},
 	firefox: {
 		target: 'firefox',
-		entry: 'firefox/package.json',
+		entry: 'firefox/manifest.json',
 		output: 'firefox',
+		noSourcemap: true,
 	},
 	firefoxbeta: {
 		target: 'firefox',
-		entry: 'firefox/beta/package.json',
+		entry: 'firefox/beta/manifest.json',
 		output: 'firefox-beta',
 	},
 };
 
-export default (env = {}) => {
+export default (env = {}, argv = {}) => {
+	const isProduction = argv.mode === 'production';
 	const browsers = (
 		typeof env.browsers !== 'string' ? ['chrome'] :
 		env.browsers === 'all' ? Object.keys(browserConfig) :
 		env.browsers.split(',')
 	);
-
-	const isProduction = process.env.NODE_ENV !== 'development';
 
 	const configs = browsers.map(b => browserConfig[b]).map(conf => ({
 		entry: `extricate-loader!interpolate-loader!./${conf.entry}`,
@@ -52,8 +52,12 @@ export default (env = {}) => {
 			path: path.join(__dirname, 'dist', conf.output),
 			filename: path.basename(conf.entry),
 		},
-		devtool: isProduction ? 'source-map' : 'cheap-source-map',
-		bail: isProduction,
+		devtool: (() => {
+			if (!isProduction) return 'cheap-source-map';
+			if (!conf.noSourcemap) return 'source-map';
+			return false;
+		})(),
+		node: false,
 		performance: false,
 		module: {
 			rules: [{
@@ -65,7 +69,25 @@ export default (env = {}) => {
 				test: /\.js$/,
 				exclude: path.join(__dirname, 'node_modules'),
 				use: [
-					{ loader: 'babel-loader' },
+					{
+						loader: 'babel-loader',
+						options: {
+							plugins: [
+								'transform-export-extensions',
+								'transform-class-properties',
+								['transform-object-rest-spread', { useBuiltIns: true }],
+								'transform-flow-strip-types',
+								'transform-dead-code-elimination',
+								['transform-define', {
+									'process.env.BUILD_TARGET': conf.target,
+									'process.env.NODE_ENV': argv.mode,
+								}],
+								'lodash',
+							],
+							comments: !isProduction,
+							babelrc: false,
+						},
+					},
 				],
 			}, {
 				test: /\.js$/,
@@ -74,8 +96,14 @@ export default (env = {}) => {
 					{
 						loader: 'babel-loader',
 						options: {
-							plugins: ['transform-dead-code-elimination', 'transform-node-env-inline'],
+							plugins: [
+								'transform-dead-code-elimination',
+								['transform-define', {
+									'process.env.NODE_ENV': argv.mode,
+								}],
+							],
 							compact: true,
+							comments: false,
 							babelrc: false,
 						},
 					},
@@ -97,30 +125,24 @@ export default (env = {}) => {
 					{ loader: 'html-loader', options: { attrs: ['link:href', 'script:src'] } },
 				],
 			}, {
-				test: /\.(png|gif)$/,
+				test: /\.(png|gif|svg)$/,
 				exclude: path.join(__dirname, 'lib', 'images'),
 				use: [
 					{ loader: 'file-loader', options: { name: '[name].[ext]' } },
 				],
 			}, {
-				test: /\.(png|gif)$/,
+				test: /\.(png|gif|svg)$/,
 				include: path.join(__dirname, 'lib', 'images'),
 				use: [
 					{ loader: 'url-loader' },
 				],
 			}],
-			noParse: [
-				// to use `require` in Firefox
-				/nativeRequire\.js$/,
-			],
+		},
+		optimization: {
+			minimize: false,
+			concatenateModules: true,
 		},
 		plugins: [
-			new ProgressBarPlugin(),
-			new webpack.DefinePlugin({
-				'process.env': {
-					BUILD_TARGET: JSON.stringify(conf.target),
-				},
-			}),
 			new InertEntryPlugin(),
 			new LodashModuleReplacementPlugin(),
 			(env.zip && !conf.noZip && new ZipPlugin({

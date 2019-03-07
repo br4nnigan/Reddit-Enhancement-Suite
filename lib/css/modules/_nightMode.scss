@@ -1,3 +1,12 @@
+$background-color: hsl(0, 0%, 15%);
+$highlight-background-color: hsl(0, 0%, 20%);
+$header-background-color: rgb(105, 105, 105);
+$border-color: #777;
+$color:  #aaa;
+$link-color: hsl(210, 50%, 70%);
+$title-link-color: hsl(0, 0%, 87%);
+$title-link-visited-color: hsl(0, 0%, 65%);
+
 .res-nightmode {
 	body,
 	body .content,
@@ -13,20 +22,22 @@
 	.side .usertext-body .md ol ol,
 	.side .usertext-body .md ol ol li,
 	.modactionlisting table *,
-	.side .recommend-box .rec-item {
-		background-color: hsl(0, 0%, 15%);
-		border-color: #777;
+	.side .recommend-box .rec-item,
+	.crosspost-preview,
+	.crosspost-thing-preview {
+		background-color: $background-color;
+		border-color: $border-color;
 	}
 
 	.popup,
 	.guider,
 	.guider p {
-		background-color: hsl(0, 0%, 15%);
-		color: #aaa;
+		background-color: $background-color;
+		color: $color;
 	}
 
 	#login_login {
-		background-color: hsl(0, 0%, 20%);
+		background-color: $highlight-background-color;
 		color: #bbb;
 	}
 
@@ -35,7 +46,7 @@
 	.read-next,
 	.drop-choices {
 		border-color: hsl(0, 0%, 30%);
-		background-color: hsl(0, 0%, 20%);
+		background-color: $highlight-background-color;
 	}
 
 	.drop-choices {
@@ -55,7 +66,7 @@
 	}
 
 	.RESCloseButton:hover {
-		background-color: hsl(0, 0%, 20%);
+		background-color: $highlight-background-color;
 	}
 
 	#RESHoverContainer::after {
@@ -106,7 +117,7 @@
 	#RESShortcutsAddFormContainer {
 		color: #ddd;
 		border-color: hsl(0, 0%, 30%);
-		background-color: hsl(0, 0%, 20%);
+		background-color: $highlight-background-color;
 	}
 
 	.login-form-side {
@@ -120,7 +131,7 @@
 
 	#header,
 	.liveupdate-home .content {
-		background-color: rgb(105, 105, 105);
+		background-color: $header-background-color;
 	}
 
 	#jumpToContent {
@@ -298,7 +309,7 @@
 
 		&:hover {
 			border-color: hsl(0, 0%, 20%);
-			background: hsl(0, 0%, 20%);
+			background: $highlight-background-color;
 
 			a {
 				color: rgb(20, 150, 220);
@@ -319,12 +330,13 @@
 		background-color: #369;
 	}
 
+	input[type='number'],
 	input[type='text'],
 	input[type='password'],
 	.c-form-control {
 		color: #ccc;
 		border: 1px solid hsl(0, 0%, 30%);
-		background-color: hsl(0, 0%, 20%);
+		background-color: $highlight-background-color;
 	}
 
 	.content textarea {
@@ -357,7 +369,7 @@
 
 	.nextprev a {
 		background: #777;
-		border-color: hsl(0, 0%, 20%);
+		border-color: $highlight-background-color;
 		color: #ddd;
 	}
 
@@ -509,7 +521,7 @@
 	#header-bottom-right,
 	#srList,
 	.dropdown.lightdrop .drop-choices {
-		background-color: hsl(0, 0%, 20%);
+		background-color: $highlight-background-color;
 	}
 
 	#srList tr {
@@ -582,7 +594,7 @@
 	.deepthread a,
 	.policy-page .md h1 a,
 	.policy-page .md h3 a {
-		color: hsl(210, 50%, 70%);
+		color: $link-color;
 	}
 
 	.flairselector li a {
@@ -590,7 +602,7 @@
 	}
 
 	.thing .title {
-		color: hsl(0, 0%, 87%);
+		color: $title-link-color;
 
 		.res-nightMode-coloredLinks & {
 			color: hsl(210, 60%, 60%);
@@ -620,7 +632,7 @@
 	.combined-search-page .search-result a:visited,
 	.combined-search-page .search-result a:visited > mark {
 		// see also _styleTweaks.scss visitedStyle
-		color: hsl(0, 0%, 65%);
+		color: $title-link-visited-color;
 
 		.res-nightMode-coloredLinks & {
 			color: hsl(270, 50%, 65%);
@@ -694,14 +706,13 @@
 	.usertext-edit textarea,
 	.RESDialogSmall,
 	.c-close,
-	#REScommentNavBox,
 	#BigEditor #BigText,
 	#liveupdate-statusbar,
 	#liveupdate-statusbar.complete,
 	#alert_message input {
 		color: #ccc;
 		border-color: hsl(0, 0%, 30%);
-		background-color: hsl(0, 0%, 20%);
+		background-color: $highlight-background-color;
 	}
 
 	#liveupdate-statusbar.live.connected {
@@ -715,7 +726,7 @@
 	}
 
 	.RESHoverInfoCard::after {
-		border-right-color: hsl(0, 0%, 20%);
+		border-right-color: $highlight-background-color;
 	}
 
 	.RESHoverInfoCard.right::before {
@@ -723,7 +734,7 @@
 	}
 
 	.RESHoverInfoCard.right::after {
-		border-left-color: hsl(0, 0%, 20%);
+		border-left-color: $highlight-background-color;
 	}
 
 	.RESDialogSmall > h3,
@@ -989,7 +1000,7 @@
 	}
 
 	.server-seconds {
-		background: hsl(0, 0%, 20%);
+		background: $highlight-background-color;
 		border-color: hsl(0, 0%, 10%);
 	}
 
@@ -1377,8 +1388,29 @@
 			}
 		}
 
-		&-dropdown-container { background-color: #313131; }
-		&-external-filter:hover { background-color: #444; }
+		&-dropdown {
+			background-color: #313131;
+			box-shadow: #3c3c3c 2px 2px 2px;
+
+			&-action {
+				border-bottom-color: #404040;
+			}
+		}
+	}
+
+	#REScommentNavBox {
+		#commentNavBy {
+			background-color: #707070;
+		}
+
+		#commentNavUp,
+		#commentNavDown {
+			color: #434343;
+		}
+
+		#commentNavPostCount {
+			color: #9f9f9f;
+		}
 	}
 
 	.res-commentNavToggle {
@@ -1386,5 +1418,326 @@
 			background-color: rgba(0, 0, 0, .9);
 			box-shadow: rgb(49, 49, 49) 1px 2px 4px;
 		}
+	}
+
+	.subreddit .usertext .md {
+		background-color: rgb(51, 51, 51);
+		border-color: $border-color;
+	}
+
+	.user-subreddit .path {
+		color: $link-color;
+	}
+
+	.modal {
+		.modal-header-title {
+			color: $color;
+		}
+
+		.modal-header,
+		.field-otp,
+		.modal-content {
+			background-color: rgb(51, 51, 51);
+			border-color: $border-color;
+			color: $color;
+		}
+
+		.c-close {
+			background-color: inherit;
+			filter: invert(100%);
+		}
+	}
+
+	.report-modal {
+		.report-form-bottom-panel .report-form-content-policy a,
+		.report-form-action-desc {
+			color: $link-color;
+		}
+
+		.report-form-bottom-panel .report-form-content-policy p,
+		.report-reason-item .report-reason-display,
+		.report-form-last-step-text,
+		.report-form-last-step-text-custom-rules,
+		.report-form-big-content-policy {
+			color: $color;
+		}
+
+		.c-close {
+			background-color: inherit;
+		}
+
+		.report-form-block-user img,
+		.report-form-blocked-user img {
+			filter: invert(100%);
+		}
+	}
+
+	.crossposting-modal {
+		.crosspost-header-title,
+		.crosspost-label,
+		.crosspost-sublabel {
+			color: $color;
+		}
+
+		.crosspost-description {
+			background-color: rgb(51, 51, 51);
+			border-color: $border-color;
+		}
+
+		.modal-body,
+		.modal-content,
+		.crosspost-field,
+		.crosspost-preview,
+		.crosspost-thing-preview {
+			background-color: $background-color;
+			color: $color;
+		}
+	}
+
+	.tfa-login-modal {
+		.tfa-login-caption {
+			color: $color;
+		}
+
+		.tfa-switch-type-of-code {
+			color: $link-color;
+		}
+
+		.tfa-login-bottom-panel {
+			.tfa-login-having-trouble a {
+				color: $link-color;
+			}
+		}
+	}
+
+	.enable-tfa-modal {
+		.enable-tfa-caption,
+		.pref-otp-qr li {
+			color: $color;
+		}
+
+		.otp-secret-info canvas {
+			border: solid 5mm white;
+		}
+
+		.switch-barcode-and-code {
+			color: $link-color;
+		}
+
+		.enable-tfa-bottom-panel {
+			.enable-tfa-learn-more,
+			.switch-barcode-and-code {
+				a { color: $link-color; }
+			}
+		}
+	}
+
+	.disable-tfa-modal {
+		.disable-tfa-caption {
+			color: $color;
+		}
+
+		.disable-tfa-bottom-panel {
+			.disable-tfa-learn-more {
+				a { color: $link-color; }
+			}
+		}
+	}
+
+	.backup-codes-modal {
+		.backup-codes-caption {
+			color: $color;
+		}
+	}
+
+	.pinnable-content.pinned {
+		background-color: $background-color !important;
+
+		.c-close {
+			background-color: inherit;
+		}
+	}
+
+	.author-tooltip__head {
+		background-color: $background-color;
+		border-color: $border-color;
+	}
+
+	.author-tooltip__credentials-list strong,
+	.author-tooltip__head h3,
+	.author-tooltip__description {
+		color: $color;
+	}
+
+	.author-tooltip__link-list,
+	.author-tooltip__head {
+		a { color: $link-color; }
+		a:hover { color: $link-color; }
+	}
+
+	.desktop-onboarding__description,
+	.desktop-onboarding-sign-up__form-note,
+	.desktop-onboarding-step_sign-up footer,
+	.subreddit-picker__subreddit-name strong {
+		color: $color;
+	}
+
+	.desktop-onboarding-step_sign-up footer {
+		a { color: $link-color; }
+	}
+
+	.desktop-onboarding__col_sign-up_image {
+		opacity: .7;
+	}
+
+	.subreddit-picker,
+	.c-username-picker-shown .desktop-onboarding__col_username_picker {
+		background-color: $background-color;
+		border-color: $border-color;
+	}
+
+	.subreddit-picker__category_selected {
+		background-color: $highlight-background-color;
+	}
+
+	.api-help .overview h2,
+	.api-help .contents .introduction strong {
+		color: $color;
+	}
+
+	.api-help .contents .overview code,
+	.api-help .parameters {
+		background-color: $highlight-background-color;
+	}
+}
+
+.res-d2x-nightmode {
+	.ProfileTemplate.m-updated,
+	.ProfileBarDropdown__list,
+	.ProfileSidebar__counterInfo,
+	.ProfileBetaConfirmationPage {
+		background-color: $background-color;
+		border-color: $border-color;
+		color: $color;
+	}
+
+	.SubredditListExpander__more,
+	.SubredditListItem__subredditLink,
+	.TrendingProfilesSidebar__profileName,
+	.TrendingProfilesSidebar__link,
+	.TrendingProfilesSidebar__more,
+	.BlueBar__logout,
+	.BlueBar__username,
+	.BlueBar__prefs,
+	.TabMenu__tab.m-active,
+	.TabMenu__tab,
+	.ProfileBarDropdown__title.m-opened,
+	.ProfileBarDropdown__title,
+	.ProfileBarDropdown__listItem,
+	.ProfileSidebar__reportUserLink,
+	.ProfileSidebar__nameTitleLink,
+	.Footer__link,
+	.Footer__userAgreementLink,
+	.Footer__privacyLink,
+	.Post__origin .Post__username,
+	.Post__authorComment .Post__username,
+	.Post__subredditLink,
+	.CommentTitle__postAuthor,
+	.CommentTitle__subredditName,
+	.Comment.m-op .Comment__author {
+		color: $link-color;
+	}
+
+	.Post__titleLink,
+	.CommentTitle__postTitle {
+		color: $title-link-color;
+	}
+
+	.Post__flatListItem,
+	.Post__titleLink:visited,
+	.CommentTitle__postTitle {
+		color: $title-link-visited-color;
+	}
+
+
+	.ProfileBarDropdown__list:hover
+	.ProfileBarDropdown__listItem:hover {
+		background-color: $header-background-color;
+	}
+
+	.UserTopSubredditsSidebar__header,
+	.SubredditListItem__subscribers,
+	.UserModeratedSubredditsSidebar__header,
+	.UserSpecialsListSidebar__header,
+	.UserSpecialsListSidebar__title,
+	.UserSpecialsListSidebar__date,
+	.TrophyCaseSidebar__header,
+	.TrophyCaseSidebar__trophyTitle,
+	.TrophyCaseSidebar__trophyDescription,
+	.TrendingProfilesSidebar__header,
+	.BlueBar__karma,
+	.ProfileSidebar__displayName,
+	.ProfileSidebar__description,
+	.ProfileSidebar__counters,
+	.ProfileSidebar__followDescription,
+	.Post__score,
+	.StyledHtml,
+	.Post__authorComment .StyledHtml,
+	.Post__prominentComment .StyledHtml,
+	.Post__commentContainer,
+	.ProfileVoiceAd__title,
+	.ProfileVoiceAd__description,
+	.ProfileVoiceAd__button {
+		color: $color;
+	}
+
+	.BlueBar {
+		background: $header-background-color;
+	}
+
+	.BlueBar__account,
+	.ProfileSidebar__titleContainer,
+	.Post,
+	.CommentListing__comment {
+		background-color: rgb(51, 51, 51);
+		border-color: $border-color;
+		color: $color;
+	}
+
+	.SubscriptionBar {
+		background-color: rgb(204, 204, 204);
+	}
+
+	.SubscriptionBar__subredditListTarget {
+		color: #000 !important;
+	}
+
+	.SubredditListItem__subscribe,
+	.SubredditListItem__unsubscribe,
+	.Post__crosspostExpando .Media.m-embed,
+	.Post__crosspostExpando .Media.m-image,
+	.Post__crosspostExpando .Media.m-video,
+	.Media.m-profile.m-embed,
+	.Media.m-profile.m-image,
+	.Media.m-profile.m-video,
+	.StyledHtml pre {
+		background-color: $background-color;
+	}
+
+	.SubredditListDropdown,
+	.SubredditListDropdown__listItem,
+	.SubredditListDropdown__listMore {
+		background-color: $highlight-background-color;
+		color: $color;
+		border-color: $border-color;
+	}
+
+	.SubredditListDropdown__listItem:hover,
+	.Post__comment:hover {
+		background-color: rgb(62, 62, 62);
+	}
+
+	.ProfileVoiceAd {
+		background-color: #202020;
 	}
 }

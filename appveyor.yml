@@ -1,7 +1,7 @@
 build: off
 version: '{build}'
 environment:
-  nodejs_version: 7
+  nodejs_version: 8
 cache:
   - '%LOCALAPPDATA%\Yarn'
 install:
@@ -9,4 +9,4 @@ install:
   - yarn install --frozen-lockfile
 test_script:
   - yarn test
-  - yarn run build -- all
+  - yarn run build all

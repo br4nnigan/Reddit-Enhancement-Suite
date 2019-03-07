@@ -1,3 +1,5 @@
+/* @flow */
+
 declare module 'element-resize-detector' {
 	declare class ElementResizeDetector {
 		listenTo(element: HTMLElement, callback: (e: HTMLElement) => void): void;
@@ -10,5 +12,5 @@ declare module 'element-resize-detector' {
 		(options?: { strategy: 'scroll' | 'object' }): ElementResizeDetector;
 	}
 
-	declare var exports: ElementResizeDetectorFactory;
+	declare module.exports: ElementResizeDetectorFactory;
 }

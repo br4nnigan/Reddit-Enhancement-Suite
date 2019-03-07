@@ -1,6 +1,6 @@
 sudo: false
 language: node_js
-node_js: 7
+node_js: 8
 branches:
   only:
     - master
@@ -22,11 +22,14 @@ env:
     # EDGE_CLIENT_ID
     - secure: SwMtDPNzHqk9wBz3z28FCvsx/g4cBZsqDQRRZFHKoAmrjPWCIVA3ufCmkGYP8j5Bl+e9kKd35udn74tU/AFOXCRPL2XmOuJHAVn1gwXTDwk3IhgiNi26ApjKNYV2zKAeSP9h6FZ9220tm8CpMqwQZ8wyekLNbiJ41kQUaggrDok=
     # EDGE_CLIENT_SECRET
-    - secure: kFIQ8Be1Ub0mOnojtoxvCEFTDoYi+CCeMBS/Nl//3ngmrVuFZihMqslzQCqrTFiVCtHnDd7Ddd0I1OL/kQg1qlShhSKYrxxChqtQwr67aZxPuodLPLfpC2NeqURDEb6Eq+wNKWfkNDP3xqQPz1wFpweanoaiQDmZOQDFqESjvy0=
+    - secure: qMLVv5D7k9eciEn8Dr4pXokd+fDIXAXHurMrsrtTm1AavCi8/bvnGgw9sqkPr25fdX6Vz4uz47KUl0sl0Mxo9Y8/r3mgKUuy8DAPuxHdkzmLw2gbb+Bqq6yMVcLeml2gDIWwkIzikolk+UsR3Zeb3TgblKyc6OA60axT7npqU9g=
     # OPERA_USER
     - secure: qDNnqBq0tTuvFd7b39JJB6jHIe6FA8iKFmkuZaiCJXezZaZDOnGTq0ZdFhR+4Zbxvpin2iaJQMaFVsh0J6RE1tZM3D6cyWpwNQDoVrxGFNzpUzddvbVzqsYtTprmttHr1Kq4sA9U66wQgrePWvnPHDViiVXcV0E8NcAutatZVUM=
     # OPERA_PASSWORD
     - secure: AZeNzWDrEQI7l6vA2675rk+KuTjq7qQ5fN4ndZoXRTwCSLjell2tONuxQHbdJOePwLBE+ow+hfOGUbbzZCwetWfGML1HbngOYVapekPjCTuviErHRwXH0ST2iJ75E5ki3+GE2K3DmlS8DRNr8BehfkjSZkxsev04vameQX+d7c0=
+    - BOT_USER=Reddit-Enhancement-Suite-Bot
+    # BOT_PASSWORD
+    - secure: ZBBtGxs7i536e3jEUsVTXu7/PfcXGWslftul6G3l9e9I9mqUcxsZY0ET/YbJib9pjmw2O9SAT5E+3uAftPpfgHxXcqm+/+Hw7qXqqG2woR18s2jxZmW9m0paa5uqsG0GZv/MYzoWGIBPfFmxEdYAKwHYy9ei4uXRwQZLc/aZXEE=
     - SAUCE_USERNAME=RES-Auto
     - SELENIUM_HOST=ondemand.saucelabs.com
     - SELENIUM_PORT=80
@@ -39,25 +42,21 @@ cache:
 install:
   - yarn install --frozen-lockfile
 matrix:
-  exclude:
-    - node_js: 7 # exclude default job https://github.com/travis-ci/travis-ci/issues/4681
   include:
     - env: RES_JOB=lint_flow
       script:
-        - yarn run flow -- check --show-all-errors
+        - yarn run flow check --show-all-errors
         - yarn run eslint
         - yarn run sass-lint
+        - yarn run i18n-lint
     - env: RES_JOB=test
       script:
         - yarn run coverage && yarn run report-coverage
-        - yarn run build -- chrome,firefox
-        - yarn run jpm -- xpi
-        - yarn run test-integration -- chrome && yarn run test-integration -- firefox
+        - yarn run build chrome,firefox
+        - yarn run integration chrome --retries 2 && yarn run integration firefox --retries 2
     - env: RES_JOB=build_deploy
       script:
-        - yarn run build -- all
-        - yarn run jpm -- xpi
-        - yarn run jpm-beta -- xpi
+        - yarn run build all
         - yarn run manifoldjs-package
       deploy:
         - provider: releases
@@ -66,13 +65,22 @@ matrix:
           prerelease: true
           file:
             - dist/zip/chrome.zip
+            - dist/zip/chrome-beta.zip
             - dist/edgeextension/package/edgeExtension.appx
             - dist/zip/firefox.zip
+            - dist/zip/firefox-beta.zip
           skip_cleanup: true
           on:
             tags: true
         - provider: script
-          script: node build/deploy.js
+          script: build/travisDeploy.sh
           skip_cleanup: true
           on:
             tags: true
+notifications:
+  irc:
+    channels:
+      - "irc.snoonet.org#enhancement"
+    on_success: change
+    on_failure: always
+    skip_join: true
